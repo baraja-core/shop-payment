@@ -5,14 +5,16 @@ declare(strict_types=1);
 namespace Baraja\Shop\Payment\Entity;
 
 
-use Baraja\Doctrine\Identifier\IdentifierUnsigned;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'shop__payment')]
 class Payment
 {
-	use IdentifierUnsigned;
+	#[ORM\Id]
+	#[ORM\Column(type: 'integer', unique: true, options: ['unsigned' => true])]
+	#[ORM\GeneratedValue]
+	protected int $id;
 
 	#[ORM\Column(type: 'string', length: 32)]
 	private string $name;
@@ -35,6 +37,12 @@ class Payment
 		$this->name = $name;
 		$this->code = $code;
 		$this->price = $price;
+	}
+
+
+	public function getId(): int
+	{
+		return $this->id;
 	}
 
 
