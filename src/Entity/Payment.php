@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Baraja\Shop\Payment\Entity;
 
 
+use Baraja\EcommerceStandard\DTO\PaymentInterface;
+use Baraja\Shop\Price\Price;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'shop__payment')]
-class Payment
+class Payment implements PaymentInterface
 {
 	#[ORM\Id]
 	#[ORM\Column(type: 'integer', unique: true, options: ['unsigned' => true])]
@@ -25,18 +27,22 @@ class Payment
 	#[ORM\Column(type: 'text', nullable: true)]
 	private ?string $description;
 
-	#[ORM\Column(type: 'integer')]
-	private int $price;
+	/** @var numeric-string */
+	#[ORM\Column(type: 'decimal', precision: 15, scale: 4, options: ['unsigned' => true])]
+	private string $price;
 
 	#[ORM\Column(type: 'string', length: 7)]
 	private ?string $color = null;
 
 
-	public function __construct(string $name, string $code, int $price)
+	/**
+	 * @param numeric-string $price
+	 */
+	public function __construct(string $name, string $code, string $price)
 	{
 		$this->name = $name;
 		$this->code = $code;
-		$this->price = $price;
+		$this->price = Price::normalize($price);
 	}
 
 
@@ -64,9 +70,9 @@ class Payment
 	}
 
 
-	public function getPrice(): int
+	public function getPrice(): string
 	{
-		return $this->price;
+		return Price::normalize($this->price);
 	}
 
 
