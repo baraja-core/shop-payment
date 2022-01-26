@@ -6,10 +6,11 @@ namespace Baraja\Shop\Payment\Entity;
 
 
 use Baraja\EcommerceStandard\DTO\PaymentInterface;
+use Baraja\Shop\Payment\Repository\PaymentRepository;
 use Baraja\Shop\Price\Price;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: PaymentRepository::class)]
 #[ORM\Table(name: 'shop__payment')]
 class Payment implements PaymentInterface
 {
