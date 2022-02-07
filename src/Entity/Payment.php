@@ -35,6 +35,9 @@ class Payment implements PaymentInterface
 	#[ORM\Column(type: 'string', length: 7)]
 	private ?string $color = null;
 
+	#[ORM\Column(type: 'text', nullable: true)]
+	private ?string $authorizatorKey = null;
+
 
 	/**
 	 * @param numeric-string $price
@@ -86,5 +89,17 @@ class Payment implements PaymentInterface
 	public function setColor(?string $color): void
 	{
 		$this->color = $color;
+	}
+
+
+	public function getAuthorizatorKey(): ?string
+	{
+		return $this->authorizatorKey;
+	}
+
+
+	public function setAuthorizatorKey(?string $authorizatorKey): void
+	{
+		$this->authorizatorKey = $authorizatorKey;
 	}
 }
