@@ -26,7 +26,7 @@ class Payment implements PaymentInterface
 	private string $code;
 
 	#[ORM\Column(type: 'text', nullable: true)]
-	private ?string $description;
+	protected ?string $description;
 
 	/** @var numeric-string */
 	#[ORM\Column(type: 'decimal', precision: 15, scale: 4, options: ['unsigned' => true])]

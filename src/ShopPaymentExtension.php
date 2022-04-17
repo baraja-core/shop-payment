@@ -13,6 +13,8 @@ final class ShopPaymentExtension extends CompilerExtension
 	public function beforeCompile(): void
 	{
 		$builder = $this->getContainerBuilder();
-		OrmAnnotationsExtension::addAnnotationPathToManager($builder, 'Baraja\Shop\Payment\Entity', __DIR__ . '/Entity');
+		if (class_exists(OrmAnnotationsExtension::class)) {
+			OrmAnnotationsExtension::addAnnotationPathToManager($builder, 'Baraja\Shop\Payment\Entity', __DIR__ . '/Entity');
+		}
 	}
 }
