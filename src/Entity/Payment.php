@@ -19,14 +19,14 @@ class Payment implements PaymentInterface
 	#[ORM\GeneratedValue]
 	protected int $id;
 
+	#[ORM\Column(type: 'text', nullable: true)]
+	protected ?string $description;
+
 	#[ORM\Column(type: 'string', length: 32)]
 	private string $name;
 
 	#[ORM\Column(type: 'string', length: 32, unique: true)]
 	private string $code;
-
-	#[ORM\Column(type: 'text', nullable: true)]
-	protected ?string $description;
 
 	/** @var numeric-string */
 	#[ORM\Column(type: 'decimal', precision: 15, scale: 4, options: ['unsigned' => true])]
